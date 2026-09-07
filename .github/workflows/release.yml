@@ -17,7 +17,7 @@ jobs:
       - name: 자가 검사
         run: node selftest.mjs
       - name: 번들
-        run: ./make_bundle.sh
+        run: bash ./make_bundle.sh
       - name: 릴리스에 첨부
         env: { GH_TOKEN: '${{ github.token }}' }
         run: |

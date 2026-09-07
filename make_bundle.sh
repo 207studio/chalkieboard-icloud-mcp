@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # 초키보드 iCloud MCP → Claude Desktop 한 번 클릭 설치 번들(.mcpb) 만들기 (74차(150-9))
 #
 # .mcpb는 manifest.json + 서버 파일을 담은 zip이다. 두 번 클릭하면 Claude Desktop이 자기 안에 복사해 두고
