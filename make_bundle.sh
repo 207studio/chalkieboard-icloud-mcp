@@ -27,7 +27,7 @@ json.dump({
   "version": version,
   "description": "아이패드 초키보드의 iCloud 수업 폴더를 읽고, 자료를 놓고, 단원·차시 계획을 덧붙입니다.",
   "long_description": "읽기는 structure.json, 파일은 과목 폴더(학년_학기_단원_차시 접두로 차시 배치), 계획은 lessons.chalkie.json 덧붙이기. 지우는 도구는 없습니다 — 삭제는 앱에서만. 아이패드 앱이 구독 상태로 iCloud에 로그인돼 있고 이 맥이 같은 계정이어야 합니다.",
-  "author": {"name": "only1mui", "email": "only1mui@icloud.com"},
+  "author": {"name": "207studio", "email": "only1mui@icloud.com", "url": "https://github.com/207studio"},   # 디렉터리 제출 요건: author가 GitHub 프로필을 가리킬 것
   "homepage": "https://github.com/207studio/chalkieboard-icloud-mcp",
   "documentation": "https://github.com/207studio/chalkieboard-icloud-mcp#readme",
   "privacy_policies": ["https://github.com/207studio/chalkieboard-icloud-mcp/blob/main/PRIVACY.md"],

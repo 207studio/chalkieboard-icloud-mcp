@@ -263,9 +263,12 @@ function mergeSheet(s, { units = [], lessonsWithoutUnit = [], pinned = [] }) {
 }
 
 // ── 도구 ──
+// title(≤64자)·annotations는 MCP 스펙의 도구 힌트다. 읽기 도구는 readOnlyHint, 쓰기 도구도 destructiveHint=false(지우는 도구가 없다).
+// Anthropic 디렉터리 심사가 이 표시를 본다(2026 체크리스트: 읽기/쓰기 표시 누락이 흔한 반려 사유).
 
 const TOOLS = {
   list_subjects: {
+    title: 'List subjects', annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     description: '과목(바인더) 목록 — 폴더 이름·학년도·학기·단원/차시 수·폴더의 파일 수, 그리고 학급 목록과 폴더 규칙. 무엇이든 시작은 여기서.',
     inputSchema: { type: 'object', properties: {} },
     run: () => {
@@ -284,6 +287,7 @@ const TOOLS = {
   },
 
   list_lessons: {
+    title: 'List lessons', annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     description: '한 과목(또는 전부)의 단원·차시와 각 차시에 붙은 자료, 기다리는 빠진 파일. folder는 list_subjects가 준 과목 폴더 이름.',
     inputSchema: { type: 'object', properties: {
       folder: { type: 'string', description: '과목 폴더 이름(예 "국어 (2026-2)"). 생략하면 전 과목' },
@@ -297,6 +301,7 @@ const TOOLS = {
   },
 
   get_lesson: {
+    title: 'Get one lesson', annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     description: '차시 하나 — 단원 번호와 차시 번호(또는 제목)로. 붙은 자료와 그 파일이 폴더에 있는지까지.',
     inputSchema: { type: 'object', required: ['folder'], properties: {
       folder: { type: 'string' }, unit: { type: 'string', description: '단원 번호("1")' },
@@ -317,6 +322,7 @@ const TOOLS = {
   },
 
   list_files: {
+    title: 'List files in a subject folder', annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     description: '과목 폴더의 파일(하위 폴더 포함) — 크기·종류·파일명 배치 정보(학년_학기_단원_차시)·학급 표시. 앱이 아직 안 들인 파일도 보인다.',
     inputSchema: { type: 'object', required: ['folder'], properties: { folder: { type: 'string' } } },
     run: ({ folder }) => {
@@ -327,6 +333,7 @@ const TOOLS = {
   },
 
   add_material: {
+    title: 'Add a material file', annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: false },
     description:
       '과목 폴더에 자료 파일을 놓는다(pdf·pptx·html). 앱이 다음에 훑을 때 그 과목 자료가 된다. ' +
       'unit·first(·last)·grade를 주면 파일 이름 앞에 `학년_학기_단원_차시[_차시끝]_`를 붙여 그 차시(들)에 자동 배치되게 한다. ' +
@@ -381,6 +388,7 @@ const TOOLS = {
   },
 
   read_file: {
+    title: 'Read a text file', annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     description: '과목 폴더의 텍스트 파일(html·md·txt·json·csv, 2MB 이하)을 읽는다. pdf·pptx는 여기서 못 읽는다 — 파일 경로를 받아 다른 도구로.',
     inputSchema: { type: 'object', required: ['folder', 'path'], properties: {
       folder: { type: 'string' }, path: { type: 'string', description: 'list_files가 준 path' },
@@ -398,6 +406,7 @@ const TOOLS = {
   },
 
   plan_lessons: {
+    title: 'Append a lesson plan', annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     description:
       '과목의 배정표(lessons.chalkie.json)에 단원·차시·자료 연결을 **덧붙인다**. 앱이 다음에 훑을 때 없는 단원·차시를 만들고 빈 제목을 채우고 ' +
       '자료를 이름으로 잇는다(폴더에 아직 없는 파일은 "빠진 파일"로 기다리다 같은 이름이 오면 자동 연결). 있는 것은 절대 지우거나 바꾸지 않는다. ' +
@@ -423,6 +432,7 @@ const TOOLS = {
   },
 
   create_subject: {
+    title: 'Create a subject folder', annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: false },
     description:
       '새 과목 폴더를 만든다 — 이름은 `과목 (학년도-학기)`, 안에 빈 배정표를 둔다. 앱이 다음에 훑을 때 그 학기에 바인더가 생긴다 ' +
       '(같은 이름을 앱에서 지운 적이 있으면 되살리지 않는다 — 그때는 앱에서 만든다). 그 다음 add_material·plan_lessons를 쓴다.',
@@ -484,13 +494,13 @@ function handle(req) {
       return reply(id, {
         protocolVersion: SUPPORTED.includes(params?.protocolVersion) ? params.protocolVersion : SUPPORTED[SUPPORTED.length - 1],
         capabilities: { tools: {}, resources: {} },
-        serverInfo: { name: 'chalkieboard', version: '2.0.0' },
+        serverInfo: { name: 'chalkieboard', title: 'Chalkieboard iCloud', version: '2.0.1' },
         instructions: '초키보드(교사 iPad 판서 앱)의 iCloud 수업 폴더입니다. 먼저 list_subjects로 과목 폴더 이름을 얻고, ' +
           '자료는 add_material로 과목 폴더에 놓고, 단원·차시 계획은 plan_lessons로 배정표에 덧붙입니다. 지우는 도구는 없습니다 — 삭제는 앱에서만.',
       })
     case 'ping': return reply(id, {})
     case 'tools/list':
-      return reply(id, { tools: Object.entries(TOOLS).map(([name, t]) => ({ name, description: t.description, inputSchema: t.inputSchema })) })
+      return reply(id, { tools: Object.entries(TOOLS).map(([name, t]) => ({ name, title: t.title, description: t.description, inputSchema: t.inputSchema, annotations: t.annotations })) })
     case 'tools/call': {
       const t = TOOLS[params?.name]
       if (!t) return fail(id, -32602, `모르는 도구입니다: ${params?.name}`)
