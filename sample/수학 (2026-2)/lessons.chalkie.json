@@ -1,0 +1,24 @@
+{
+  "generatedBy": "Chalkieboard",
+  "kind": "sharedIndex",
+  "lessonsWithoutUnit": [],
+  "note": "공유 인덱스 배정표 — 다른 초키보드가 이 과목 폴더(파일 포함)를 받아 훑으면 단원·차시와 자료 연결을 그대로 이어받습니다. 학급·시간표는 담지 않습니다.",
+  "pinned": [ { "kind": "pdf", "name": "교과서" } ],
+  "schema": 1,
+  "semester": 2,
+  "subject": "수학",
+  "units": [
+    {
+      "lessons": [
+        { "materials": [ { "kind": "html", "name": "4_2_1_01_학습지" }, { "kind": "pdf", "name": "교과서" } ], "session": 1, "title": "진분수의 덧셈" },
+        { "materials": [ { "kind": "pdf", "name": "교과서" } ], "missing": [ "익힘책.pdf" ], "session": 2, "title": "진분수의 뺄셈" },
+        { "materials": [], "session": 3, "title": "" }
+      ],
+      "number": "1",
+      "order": 1,
+      "title": "분수의 덧셈과 뺄셈"
+    },
+    { "lessons": [], "number": "2", "order": 2, "title": "" }
+  ],
+  "year": 2026
+}

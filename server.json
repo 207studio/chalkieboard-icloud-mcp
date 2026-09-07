@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.207studio/chalkieboard-icloud-mcp",
+  "title": "Chalkieboard iCloud",
+  "description": "Read a teacher's Chalkieboard (iPad) iCloud lesson folders, drop materials into subject folders, and append unit/lesson plans. Local-only, no network.",
+  "version": "2.0.0",
+  "websiteUrl": "https://github.com/207studio/chalkieboard-icloud-mcp",
+  "repository": {
+    "url": "https://github.com/207studio/chalkieboard-icloud-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/207studio/chalkieboard-icloud-mcp/releases/download/v2.0.0/chalkieboard.mcpb",
+      "fileSha256": "FILLED_BY_publish_registry.sh",
+      "transport": { "type": "stdio" }
+    }
+  ]
+}

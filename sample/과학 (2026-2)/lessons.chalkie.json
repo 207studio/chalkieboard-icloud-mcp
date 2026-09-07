@@ -1,0 +1,12 @@
+{
+  "generatedBy": "Chalkieboard",
+  "kind": "sharedIndex",
+  "lessonsWithoutUnit": [ { "materials": [], "title": "과학 안전 교육" } ],
+  "note": "공유 인덱스 배정표 — 다른 초키보드가 이 과목 폴더(파일 포함)를 받아 훑으면 단원·차시와 자료 연결을 그대로 이어받습니다. 학급·시간표는 담지 않습니다.",
+  "pinned": [],
+  "schema": 1,
+  "semester": 2,
+  "subject": "과학",
+  "units": [],
+  "year": 2026
+}
