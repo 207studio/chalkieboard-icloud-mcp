@@ -87,7 +87,7 @@ node tools/mcp/selftest.mjs
 | 어디 | 누가 싣나 | 준비물 |
 |---|---|---|
 | 클로드 데스크톱 "확장 찾아보기" | Anthropic 심사(구글 폼 제출) | [디렉터리_제출_초안.md](디렉터리_제출_초안.md) — 아이콘·연락처는 됐고, 공개 저장소·견본 폴더·개인정보 정책 페이지가 남았다 |
-| 공개 MCP 레지스트리 | 우리가 직접(`publish_registry.sh`) | **공개** GitHub 저장소의 릴리스에 번들이 있어야 한다 + `mcp-publisher login github` |
+| 공개 MCP 레지스트리 | ✅ 올라가 있음 — `io.github.207studio/chalkieboard-icloud-mcp` | 공개 저장소 <https://github.com/207studio/chalkieboard-icloud-mcp>에 태그 `v<버전>`을 밀면 `release.yml`이 번들·릴리스·발행(OIDC) |
 
 아이콘은 앱 아이콘 512px(`icon.png`)이 번들 manifest의 `icon`·`icons`로 들어간다.
 
